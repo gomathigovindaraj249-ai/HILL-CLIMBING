@@ -1,6 +1,6 @@
 <h1>ExpNo 5 : Implement Simple Hill Climbing Algorithm</h1> 
-<h3>Name:             </h3>
-<h3>Register Number:             </h3>
+<h3>Name: GOMATHI G </h3>
+<h3>Register Number:  212225230079 </h3>
 <H3>Aim:</H3>
 <p>Implement Simple Hill Climbing Algorithm and Generate a String by Mutating a Single Character at each iteration </p>
 <h2> Theory: </h2>
@@ -59,3 +59,62 @@ Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 0  Solution :  Artificial Intelligence<br>
+
+# PROGRAM:
+```
+import random
+import string
+
+def fitness(current, target):
+    score = 0
+    for a, b in zip(current, target):
+        score += abs(ord(a) - ord(b))
+    return score
+
+def hill_climbing(target):
+    characters = string.ascii_letters + string.digits + string.punctuation + " "
+    current = ''.join(
+        random.choice(characters) for _ in range(len(target))
+    )
+
+    score = fitness(current, target)
+    print("Score:", score, " Solution :", current)
+
+    while score > 0:
+        improved = False
+
+        for i in range(len(target)):
+            if current[i] == target[i]:
+                continue
+
+            candidate_char = target[i]
+            candidate = current[:i] + candidate_char + current[i + 1:]
+            candidate_score = fitness(candidate, target)
+
+            if candidate_score < score:
+                current = candidate
+                score = candidate_score
+                improved = True
+                print("Score:", score, " Solution :", current)
+
+                if score == 0:
+                    break
+
+        if not improved:
+            break
+
+    if score == 0:
+        print("Target string generated successfully!")
+    else:
+        print("Local optimum reached.")
+
+target = input("Enter the target string: ")
+hill_climbing(target)
+
+```
+# Output:
+
+![alt text](image.png)
+
+# Result:
+Thus the Simple Hill Climb Algorithm Implemented successfully.
